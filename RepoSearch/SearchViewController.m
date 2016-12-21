@@ -43,7 +43,6 @@
 - (void) searchRepo {
     NSString *keyword = searchBar.text;
     
-    // ここからGCD登場
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -65,6 +64,7 @@
 
 - (void) search: (NSString *) keyword {
     LOG_CURRENT_METHOD;
+    NSString * url = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@", keyword];
     
     
 //    return [NSThread currentThread];
