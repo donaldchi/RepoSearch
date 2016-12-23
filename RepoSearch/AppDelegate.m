@@ -13,10 +13,19 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+//    self.window.rootViewController = [[UIViewController alloc] initWithNibName:<#(nullable NSString *)#> bundle:nil];
+//    
+//    
+//    navigationController.navigationBar.hidden = YES;
+//    [window addSubview:navigationController.view];
+//    window.backgroundColor = [UIColor blackColor];
+//    [window makeKeyAndVisible]; //show window
+    
     return YES;
 }
 

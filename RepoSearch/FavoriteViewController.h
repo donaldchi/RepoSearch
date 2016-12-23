@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RepoPageViewController.h"
+#import "Define.h"
+#import "ResultViewCell.h"
+#import "Repository.h"
 
-@interface FavoriteViewController : UIViewController
+@interface FavoriteViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
+    UITableView *favView;
+    RepoPageViewController * repoPage;
+    NSDictionary *repoes;
+    int repo_count;
+}
 
-
+@property (nonatomic, retain) IBOutlet RepoPageViewController * repoPage;
+@property (nonatomic, retain) IBOutlet UITableView *favView;
+@property (nonatomic, retain) IBOutlet NSDictionary *repoes;
 @end
 
