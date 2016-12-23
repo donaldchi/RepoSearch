@@ -8,10 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "Define.h"
+#import "ResultViewCell.h"
+#import "Repository.h"
+#import "RepoPageViewController.h"
 
-@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate>{
+@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>{
     UISearchBar *searchBar;
     UITableView *resultView;
+    NSMutableArray * repoes;
+    NSMutableDictionary * fav_repoes;
+    RepoPageViewController * repoPage;
+    int repo_count;
 }
 
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;

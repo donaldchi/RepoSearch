@@ -9,6 +9,7 @@
 
 #define DEBUG
 
+#define FAV @"favorites";
 // デバッグ用マクロ
 #ifdef DEBUG
 #  define LOG(...) NSLog(__VA_ARGS__)

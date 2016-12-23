@@ -16,16 +16,36 @@
 @synthesize searchBar;
 @synthesize resultView;
 
+#pragma mark -
+#pragma mark - View lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     searchBar.delegate = self;
-    searchBar.prompt = @"Github Repository Search";
     searchBar.placeholder = @"Please Input Keyword!";
     
     resultView.delegate = self;
+    resultView.dataSource = self;
+    
+    self.title = @"Search";
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
+    fav_repoes = [[ud objectForKey:@"favorites"] mutableCopy];
+    [resultView reloadData];
+}
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
 #pragma mark - UISearchBarDelegate
 
 -(void)searchBarSearchButtonClicked:(UISearchBar*) searchBar{
@@ -48,9 +68,9 @@
     
     //入力がある度にthreadを生成し、非同期で検索処理を行う
 //    NSLog(@"main thread: %@", [NSThread currentThread]);
-//    __block NSString *result; //各threadの結果を格納する
+    __block NSDictionary *result; //各threadの結果を格納する
     dispatch_block_t block = ^{
-        [self search: keyword];
+        result = [self search: keyword];
 //    NSLog(@"thread: %@, key: %@", [NSThread currentThread], keyword);
     };
     
@@ -59,15 +79,18 @@
     //処理が終わった時に通知を受け、結果を表示する
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
 //        NSLog(@"result: %@, thread: %@, key: %@", result,[NSThread currentThread], keyword);
+//        NSLog(@"thread: %@, key: %@, count: %d",[NSThread currentThread], keyword, result[@"total_count"]);
+
+        [self createRepoRecords:result];
     });
 }
 
-- (void) search: (NSString *) keyword {
+- (NSDictionary *) search: (NSString *) keyword {
     LOG_CURRENT_METHOD;
     //NSURLSessionは非同期処理であるため、disppath_semaphore_tを使って同期処理にする
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
-    NSString * url = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@", keyword];
+    NSString * url = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@", keyword]   ;
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
     
@@ -89,9 +112,7 @@
                     
                 } else {
                     // Success Parsing JSON
-                    // Log NSDictionary response:
-                    NSLog(@"%@",jsonResponse);
-                    NSLog(@"count: %@", jsonResponse[@"total_count"]);
+                     NSLog(@"Got results successfully!");
                 }
             }  else {
                 //Web server is returning an error
@@ -106,14 +127,90 @@
     
     [task resume];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-//    return [NSThread currentThread];
-//    return [NSString stringWithFormat:@"key: %@", keyword];
+    return jsonResponse;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void) createRepoRecords : (NSDictionary *) results {
+    repoes = [[NSMutableArray alloc] init];
+    
+    repo_count = results[@"total_count"];
+    NSLog(@"Count: %d", repo_count);
+    
+    NSArray * items = results[@"items"];
+    int count=1;
+    for (id item in items) {
+        Repository *repo = [Repository createRepoRecord:item];
+        [repoes addObject:repo];
+        if(count==12) break;
+        count++;
+    }
+    [self.resultView reloadData];
 }
 
+#pragma mark -
+#pragma mark Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 12;
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    // Create an instance of ItemCell
+    ResultViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"ResultViewCell"];
+    
+    if(repoes!=nil) {
+        Repository * repo = [repoes objectAtIndex:indexPath.row];
+        cell.user.text = repo.user;
+        cell.filename.text = repo.filename;
+        cell.description.text = repo.desc;
+        cell.lan.text = repo.language;
+        cell.star.text = repo.stargazer;
+        cell.fork.text = repo.fork;
+        cell.update.text = repo.update;
+        
+        NSURL *userPicURL = [NSURL URLWithString:repo.avatar];
+        NSData * myData = [NSData dataWithContentsOfURL:userPicURL];
+        UIImage *myImage = [UIImage imageWithData:myData];
+        [cell.user_pic setImage:myImage];
+        
+        UIImage * lan_img = [UIImage imageNamed:@"code.png"];
+        [cell.lan_pic setImage:lan_img];
+        
+        UIImage * fork_img = [UIImage imageNamed:@"fork.png"];
+        [cell.fork_pic setImage:fork_img];
+        
+        UIImage * star_img = [UIImage imageNamed:@"star.png"];
+        [cell.star_pic setImage:star_img];
+        
+        NSString * key = [NSString stringWithFormat:@"%@%@", repo.user, repo.filename];
+        UIImage * fav_img;
+        if ([fav_repoes.allKeys containsObject:key]) {
+            fav_img =[UIImage imageNamed:@"fav_selected.png"];
+        } else {
+            fav_img =[UIImage imageNamed:@"fav.png"];
+        }
+        
+        [cell.favorite setImage:fav_img];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    LOG_CURRENT_METHOD;
+    if(repoes!=nil) {
+        Repository * repo = [repoes objectAtIndex:indexPath.row];
+        repoPage = [[RepoPageViewController alloc] initWithNibName:@"RepoPageViewController" bundle:nil];
+        repoPage.repo = repo;
+        [self.navigationController pushViewController:repoPage animated:YES];
+    }
+}
 @end

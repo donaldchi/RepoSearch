@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
-
+@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+    UINavigationController *navigationController;
+    UIWindow *window;
+    UIImageView *logoImage;
+}
+@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, retain) IBOutlet UIWindow *window;
 @end
 
