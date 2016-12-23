@@ -51,7 +51,7 @@
 
 + (Repository*) createRepoRecord: (NSDictionary *) item {
     Repository *repo=[[Repository alloc] init];
-    LOG_CURRENT_METHOD;
+//    LOG_CURRENT_METHOD;
     if(![item[@"full_name"] isEqual:[NSNull null]])
         repo.filename = item[@"full_name"];
     else

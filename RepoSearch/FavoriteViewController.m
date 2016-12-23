@@ -96,16 +96,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LOG_CURRENT_METHOD;
-//    
-//    if(repoes!=nil) {
-//        Repository * repo = [repoes objectAtIndex:indexPath.row];
-//        NSLog(@"nav controller = %@", self.navigationController);
-//        repoPage = [[RepoPageViewController alloc] initWithNibName:@"RepoPageViewController" bundle:nil];
-//        //    ProductInfoVC_.product = [products_ objectAtIndex:indexPath.row];
-//        repoPage.repo = repo;
-//        [self.navigationController pushViewController:repoPage animated:YES];
-//        //    [repoPage release];
-//    }
+    
+    if(repoes!=nil) {
+        NSArray *keys = [repoes allKeys];
+        id aKey = [keys objectAtIndex:indexPath.row];
+        id anObject = [repoes objectForKey:aKey];
+        Repository *repo = [NSKeyedUnarchiver unarchiveObjectWithData:anObject];
+        
+        NSLog(@"nav controller = %@", self.navigationController);
+        repoPage = [[RepoPageViewController alloc] initWithNibName:@"RepoPageViewController" bundle:nil];
+        
+            NSLog(@"Repository: \
+                  file: %@ \
+                  user: %@ \
+                  stargazer: %@ \
+                  update: %@ \
+                  url: %@ \
+                  avatar: %@ \
+                  desc: %@ \
+                  ", repo.filename, repo.user, repo.stargazer, repo.update, \
+                  repo.url, repo.avatar, repo.desc);
+        
+        repoPage.repo = repo;
+        [self.navigationController pushViewController:repoPage animated:YES];
+    }
 }
 
 #pragma mark -

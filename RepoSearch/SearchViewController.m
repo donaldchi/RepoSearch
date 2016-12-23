@@ -28,7 +28,12 @@
     resultView.delegate = self;
     resultView.dataSource = self;
     
+    UIImage * bgImg = [UIImage imageNamed:@"background.jpg"];
+    resultView.backgroundColor = [UIColor colorWithPatternImage:bgImg];
+    
     self.title = @"Search";
+    
+    repo_count = 12;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +66,7 @@
 }
 
 - (void) searchRepo {
+    BM_START(searchRepo);
     NSString *keyword = searchBar.text;
     
     dispatch_group_t group = dispatch_group_create();
@@ -80,9 +86,9 @@
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
 //        NSLog(@"result: %@, thread: %@, key: %@", result,[NSThread currentThread], keyword);
 //        NSLog(@"thread: %@, key: %@, count: %d",[NSThread currentThread], keyword, result[@"total_count"]);
-
         [self createRepoRecords:result];
     });
+    BM_END(searchRepo);
 }
 
 - (NSDictionary *) search: (NSString *) keyword {
@@ -133,16 +139,13 @@
 - (void) createRepoRecords : (NSDictionary *) results {
     repoes = [[NSMutableArray alloc] init];
     
-    repo_count = results[@"total_count"];
-    NSLog(@"Count: %d", repo_count);
+//    repo_count = results[@"total_count"];
+//    NSLog(@"Count: %d", repo_count);
     
     NSArray * items = results[@"items"];
-    int count=1;
     for (id item in items) {
         Repository *repo = [Repository createRepoRecord:item];
         [repoes addObject:repo];
-        if(count==12) break;
-        count++;
     }
     [self.resultView reloadData];
 }
@@ -157,14 +160,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 12;
+    return repo_count;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    BM_START(initTable);
     // Create an instance of ItemCell
     ResultViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"ResultViewCell"];
+    [cell setAlpha:1];
     
     if(repoes!=nil) {
         Repository * repo = [repoes objectAtIndex:indexPath.row];
@@ -176,10 +180,17 @@
         cell.fork.text = repo.fork;
         cell.update.text = repo.update;
         
-        NSURL *userPicURL = [NSURL URLWithString:repo.avatar];
-        NSData * myData = [NSData dataWithContentsOfURL:userPicURL];
-        UIImage *myImage = [UIImage imageWithData:myData];
-        [cell.user_pic setImage:myImage];
+        //download user pic in async way
+        [cell.user_pic setImage:nil];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            // retrive image on global queue
+            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:     [NSURL URLWithString:repo.avatar]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ResultViewCell * cell = (ResultViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+                // assign cell image on main thread
+                [cell.user_pic setImage:img];
+            });
+        });
         
         UIImage * lan_img = [UIImage imageNamed:@"code.png"];
         [cell.lan_pic setImage:lan_img];
@@ -200,7 +211,7 @@
         
         [cell.favorite setImage:fav_img];
     }
-    
+    BM_END(initTable);
     return cell;
 }
 
@@ -211,6 +222,23 @@
         repoPage = [[RepoPageViewController alloc] initWithNibName:@"RepoPageViewController" bundle:nil];
         repoPage.repo = repo;
         [self.navigationController pushViewController:repoPage animated:YES];
+        
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    LOG_CURRENT_METHOD;
+    
+    //一番下までスクロールしたかどうか
+    if(resultView.contentOffset.y >= (resultView.contentSize.height - resultView.bounds.size.height)) {
+        //まだ表示するコンテンツが存在するか判定し存在するなら○件分を取得して表示更新する
+        NSLog(@"YES");
+        
+        repo_count = repo_count + 12;
+        if(repo_count > [repoes count])
+            repo_count = [repoes count];
+        [resultView reloadData];
+//        [resultView cell];
     }
 }
 @end

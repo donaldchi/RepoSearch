@@ -19,6 +19,13 @@
 #  define LOG_CURRENT_METHOD ;
 #endif
 
+// 時間計測に使用
+#define BM_START(name) NSDate *name##_start = [NSDate new]
+#define BM_END(name)   NSDate *name##_end = [NSDate new];\
+NSLog(@"%s interval: %f", #name, [name##_end timeIntervalSinceDate:name##_start])
+//NSLog(@"%s interval: %f", #name, [name##_end timeIntervalSinceDate:name##_start]);\
+//[name##_start release];[name##_end release]
+
 //画面サイズ取得マクロ
 #define SCREEN_WIDTH ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.width : [[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_HEIGHT ((([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortrait) || ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationPortraitUpsideDown)) ? [[UIScreen mainScreen] bounds].size.height : [[UIScreen mainScreen] bounds].size.width)

@@ -15,7 +15,7 @@
 @interface FavoriteViewController : UIViewController<UITableViewDelegate, UITableViewDataSource> {
     UITableView *favView;
     RepoPageViewController * repoPage;
-    NSDictionary *repoes;
+    NSMutableDictionary *repoes;
     int repo_count;
 }
 
