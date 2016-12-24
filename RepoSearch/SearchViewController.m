@@ -55,11 +55,12 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar*) searchBar{
     LOG_CURRENT_METHOD;
+    [searchBar endEditing:YES];
 }
 
 -(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText{
     //入力を検知し、遅延実行することで結果を表示する
-    dispatch_time_t *show_time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(100 * NSEC_PER_MSEC));
+    dispatch_time_t *show_time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(100*NSEC_PER_MSEC));
     dispatch_after(show_time, dispatch_get_main_queue(), ^(void){
         [self searchRepo];
     });
@@ -122,6 +123,7 @@
                 }
             }  else {
                 //Web server is returning an error
+                NSLog(@"Web Server Error!");
             }
         } else {
             // Fail
@@ -137,17 +139,27 @@
 }
 
 - (void) createRepoRecords : (NSDictionary *) results {
-    repoes = [[NSMutableArray alloc] init];
-    
-//    repo_count = results[@"total_count"];
-//    NSLog(@"Count: %d", repo_count);
+    LOG_CURRENT_METHOD;
+    if(results[@"message"]!=nil) {
+        NSLog(@"Limit Error!");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"API rate limit exceeded for 106.184.21.27. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details. URL: https://developer.github.com/v3/#rate-limiting)" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alert show];
+        
+        repoes = nil;
+        [resultView reloadData];
+        return;
+    }
     
     NSArray * items = results[@"items"];
-    for (id item in items) {
-        Repository *repo = [Repository createRepoRecord:item];
-        [repoes addObject:repo];
+    if(items != nil) {
+        repoes = [[NSMutableArray alloc] init];
+        for (id item in items) {
+            Repository *repo = [Repository createRepoRecord:item];
+            [repoes addObject:repo];
+        }
+        
+        [resultView reloadData];
     }
-    [self.resultView reloadData];
 }
 
 #pragma mark -
@@ -159,18 +171,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+//    if([repoes count] < 12)
+//        repo_count = [repoes count];
     return repo_count;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    LOG_CURRENT_METHOD;
     BM_START(initTable);
     // Create an instance of ItemCell
     ResultViewCell *cell =  [tableView dequeueReusableCellWithIdentifier:@"ResultViewCell"];
     [cell setAlpha:1];
-    
-    if(repoes!=nil) {
+    NSLog(@"%d", [repoes count]);
+    if(repoes!=nil && [repoes count] > indexPath.row) {
+        NSLog(@"in cell");
         Repository * repo = [repoes objectAtIndex:indexPath.row];
         cell.user.text = repo.user;
         cell.filename.text = repo.filename;
@@ -178,7 +193,8 @@
         cell.lan.text = repo.language;
         cell.star.text = repo.stargazer;
         cell.fork.text = repo.fork;
-        cell.update.text = repo.update;
+        
+        cell.update.text = [repo.update substringToIndex:9];
         
         //download user pic in async way
         [cell.user_pic setImage:nil];
@@ -210,6 +226,21 @@
         }
         
         [cell.favorite setImage:fav_img];
+    } else {
+        //検索結果がない場合
+        cell.user.text = nil;
+        cell.filename.text = nil;
+        cell.description.text = nil;
+        cell.lan.text = nil;
+        cell.star.text = nil;
+        cell.fork.text = nil;
+        cell.update.text = nil;
+        [cell.user_pic setImage:nil];
+        [cell.lan_pic setImage:nil];
+        [cell.fork_pic setImage:nil];
+        [cell.star_pic setImage:nil];
+        [cell.favorite setImage:nil];
+        
     }
     BM_END(initTable);
     return cell;
@@ -222,7 +253,10 @@
         repoPage = [[RepoPageViewController alloc] initWithNibName:@"RepoPageViewController" bundle:nil];
         repoPage.repo = repo;
         [self.navigationController pushViewController:repoPage animated:YES];
-        
+    } else {
+        ResultViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
+        [resultView reloadData];
     }
 }
 
@@ -238,7 +272,6 @@
         if(repo_count > [repoes count])
             repo_count = [repoes count];
         [resultView reloadData];
-//        [resultView cell];
     }
 }
 @end

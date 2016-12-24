@@ -74,10 +74,17 @@
         cell.fork.text = repo.fork;
         cell.update.text = repo.update;
         
-        NSURL *userPicURL = [NSURL URLWithString:repo.avatar];
-        NSData * myData = [NSData dataWithContentsOfURL:userPicURL];
-        UIImage *myImage = [UIImage imageWithData:myData];
-        [cell.user_pic setImage:myImage];
+        //download user pic in async way
+        [cell.user_pic setImage:nil];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            // retrive image on global queue
+            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:repo.avatar]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ResultViewCell * cell = (ResultViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+                // assign cell image on main thread
+                [cell.user_pic setImage:img];
+            });
+        });
     
         UIImage * lan_img = [UIImage imageNamed:@"code.png"];
         [cell.lan_pic setImage:lan_img];

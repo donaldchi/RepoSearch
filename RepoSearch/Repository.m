@@ -51,7 +51,7 @@
 
 + (Repository*) createRepoRecord: (NSDictionary *) item {
     Repository *repo=[[Repository alloc] init];
-//    LOG_CURRENT_METHOD;
+    LOG_CURRENT_METHOD;
     if(![item[@"full_name"] isEqual:[NSNull null]])
         repo.filename = item[@"full_name"];
     else
@@ -91,17 +91,17 @@
     int fork_count = item[@"forks_count"];
     repo.stargazer = [NSString stringWithFormat:@"%d", star_count];
     repo.fork = [NSString stringWithFormat:@"%d", fork_count];
-//
-//    NSLog(@"Repository: \
-//          file: %@ \
-//          user: %@ \
-//          stargazer: %@ \
-//          update: %@ \
-//          url: %@ \
-//          avatar: %@ \
-//          desc: %@ \
-//          ", repo.filename, repo.user, repo.stargazer, repo.update, \
-//          repo.url, repo.avatar, repo.desc);
+
+    NSLog(@"Repository: \
+          file: %@ \
+          user: %@ \
+          stargazer: %@ \
+          update: %@ \
+          url: %@ \
+          avatar: %@ \
+          desc: %@ \
+          ", repo.filename, repo.user, repo.stargazer, repo.update, \
+          repo.url, repo.avatar, repo.desc);
     return repo;
 }
 
