@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Repository.h"
 
 @interface AppDelegate ()
 
@@ -18,14 +19,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    self.window.rootViewController = [[UIViewController alloc] initWithNibName:<#(nullable NSString *)#> bundle:nil];
-//    
-//    
-//    navigationController.navigationBar.hidden = YES;
-//    [window addSubview:navigationController.view];
-//    window.backgroundColor = [UIColor blackColor];
-//    [window makeKeyAndVisible]; //show window
+//    //initiallize user defaults
+    // add my own repo
+    NSString * key = @"donaldchidonaldchi/RepoSearch";
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  // 取得
+    NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+    Repository * repo = [[Repository alloc] init];
+    repo.filename = @"donaldchi/RepoSearch";
+    repo.user = @"donaldchi";
+    repo.language = @"Objective-C";
+    repo.desc = @"Repository Incremental Search program";
+    repo.stargazer = @"0";
+    repo.fork = @"0";
+    repo.update = @"2016/12/27";
+    repo.url = @"https://github.com/donaldchi/RepoSearch";
+    repo.avatar = @"https://avatars.githubusercontent.com/u/3402798?v=3";
     
+    [ud setObject:defaults forKey:@"favorites"];
+    [ud registerDefaults:defaults];
+
     return YES;
 }
 

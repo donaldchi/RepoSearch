@@ -71,9 +71,12 @@
         repo.url = item[@"html_url"];
     else
         repo.url = @"";
-    
-    if(![item[@"updated_at"] isEqual:[NSNull null]])
+
+    if(![item[@"updated_at"] isEqual:[NSNull null]]) {
         repo.update = item[@"updated_at"];
+        repo.update = [repo.update substringToIndex:10];
+        repo.update = [repo.update stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
+    }
     else
         repo.update = @"";
     
@@ -96,7 +99,7 @@
           file: %@ \
           user: %@ \
           stargazer: %@ \
-          update: %@ \
+          updatetime: %@ \
           url: %@ \
           avatar: %@ \
           desc: %@ \

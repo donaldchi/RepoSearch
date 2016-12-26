@@ -15,6 +15,7 @@
 @implementation SearchViewController
 @synthesize searchBar;
 @synthesize resultView;
+@synthesize menu;
 
 #pragma mark -
 #pragma mark - View lifecycle
@@ -34,6 +35,14 @@
     self.title = @"Search";
     
     repo_count = 12;
+    
+    menuView = [[[NSBundle mainBundle] loadNibNamed:@"MenuView" owner:self options:nil] lastObject];
+    menuView.delegate = self;
+    
+    searchBarHeight = searchBar.frame.size.height;
+    navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
+    menuView.frame = CGRectMake(0, -1*SCREEN_HEIGHT/3 + navigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT/3);
+    [self.view addSubview:menuView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,6 +68,7 @@
 }
 
 -(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText{
+    NSLog(@"change");
     //入力を検知し、遅延実行することで結果を表示する
     dispatch_time_t *show_time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(100*NSEC_PER_MSEC));
     dispatch_after(show_time, dispatch_get_main_queue(), ^(void){
@@ -97,8 +107,11 @@
     //NSURLSessionは非同期処理であるため、disppath_semaphore_tを使って同期処理にする
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
-    NSString * url = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@", keyword]   ;
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+//    NSString * url = [NSString stringWithFormat:@"https://api.github.com/search/repositories?q=%@", keyword]   ;
+    
+    NSURL * url = [self createURL:keyword];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     
     
     __block NSDictionary *jsonResponse = nil;
@@ -138,11 +151,35 @@
     return jsonResponse;
 }
 
+-  (NSURL *) createURL : (NSString *) keyword {
+    NSString * url = [NSString stringWithFormat: @"https://api.github.com/search/repositories?q=%@",keyword];
+    if(menuView.language!=@"") {
+        url = [NSString stringWithFormat:@"%@+language:%@",url, menuView.language];
+    }
+    
+    if(menuView.compareOptions!=@"") {
+        NSLog(@"order: %@", menuView.compareOrder);
+        
+        if([menuView.compareOrder isEqualToString:@"asc"]) {
+            NSLog(@"ascending");
+            url = [NSString stringWithFormat:@"%@&sort=%@&order=asc", url,menuView.compareOptions];
+        } else if ([menuView.compareOrder isEqualToString:@"desc"]) {
+            url = [NSString stringWithFormat:@"%@&sort=%@&order=desc", url,menuView.compareOptions];
+        } else {
+           url = [NSString stringWithFormat:@"%@&sort=%@", url,menuView.compareOptions];
+        }
+    }
+    
+    NSLog(@"Final URL: %@", url);
+    return [NSURL URLWithString:url];
+}
+
 - (void) createRepoRecords : (NSDictionary *) results {
     LOG_CURRENT_METHOD;
-    if(results[@"message"]!=nil) {
+    
+    if([results[@"message"] containsString:@"API rate limit"]) {
         NSLog(@"Limit Error!");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"API rate limit exceeded for 106.184.21.27. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details. URL: https://developer.github.com/v3/#rate-limiting)" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!!" message:@"API rate limit exceeded for 106.184.21.27. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details. URL: https://developer.github.com/v3/#rate-limiting)" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
         
         repoes = nil;
@@ -194,15 +231,16 @@
         cell.star.text = repo.stargazer;
         cell.fork.text = repo.fork;
         
-        cell.update.text = [repo.update substringToIndex:9];
+        cell.update.text = repo.update;
         
         //download user pic in async way
         [cell.user_pic setImage:nil];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // retrive image on global queue
-            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL:     [NSURL URLWithString:repo.avatar]]];
+            UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:repo.avatar]]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 ResultViewCell * cell = (ResultViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+                
                 // assign cell image on main thread
                 [cell.user_pic setImage:img];
             });
@@ -268,10 +306,71 @@
         //まだ表示するコンテンツが存在するか判定し存在するなら○件分を取得して表示更新する
         NSLog(@"YES");
         
-        repo_count = repo_count + 12;
-        if(repo_count > [repoes count])
-            repo_count = [repoes count];
-        [resultView reloadData];
+        int record_count = [repoes count];
+        if(repo_count!=0 && record_count!=0) {
+            repo_count = repo_count + 12;
+            if(repo_count > record_count) {
+                repo_count = record_count;
+                return;
+            }
+            NSLog(@"repo_count: %d, repoes.count: %d", repo_count, [repoes count]);
+            [resultView reloadData];
+        }
     }
+}
+
+#pragma mark -
+#pragma mark - menu management
+- (IBAction)menuPressed:(id)sender {
+    LOG_CURRENT_METHOD;
+    if (menuView.isMenuOpen) {
+        [self hiddenOverlayView];
+        NSLog(@"hide menu");
+        [searchBar setUserInteractionEnabled:YES];
+        [resultView setUserInteractionEnabled:YES];
+        [self searchRepo]; //option選択が終わった時点でもう一度検索し直す
+        
+    } else {
+        [self showOverlayView];
+        NSLog(@"show menu");
+        [searchBar setUserInteractionEnabled:NO];
+        [resultView setUserInteractionEnabled:NO];
+    }
+    
+    [menuView tappedMenuButton:(searchBarHeight+navigationBarHeight+SCREEN_HEIGHT/3)];
+}
+
+- (void)showOverlayView
+{
+    overlayView.hidden = NO;
+    overlayView.alpha = 0.0;
+    
+    [UIView animateWithDuration:0.3f
+                          delay:0.05f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         overlayView.alpha = 0.5;
+                     }
+                     completion:^(BOOL finished){
+                     }];
+    
+    [UIView commitAnimations];
+}
+
+- (void)hiddenOverlayView
+{
+    overlayView.alpha = 0.5;
+    
+    [UIView animateWithDuration:0.3f
+                          delay:0.05f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         overlayView.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished){
+                         overlayView.hidden = YES;
+                     }];
+    
+    [UIView commitAnimations];
 }
 @end
