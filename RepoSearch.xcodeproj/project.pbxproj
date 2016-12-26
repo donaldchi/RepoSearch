@@ -14,10 +14,24 @@
 		C23C4A301E0D374100EC22FF /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = C23C4A2D1E0D374100EC22FF /* star.png */; };
 		C23C4A331E0D37B100EC22FF /* fav.png in Resources */ = {isa = PBXBuildFile; fileRef = C23C4A311E0D37B100EC22FF /* fav.png */; };
 		C23C4A341E0D37B100EC22FF /* fav_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C23C4A321E0D37B100EC22FF /* fav_selected.png */; };
-		C23C4A3A1E0D3E9200EC22FF /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = C23C4A391E0D3E9200EC22FF /* Repository.m */; };
+		C2472C3F1E11737A00C1F1BB /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = C2472C3E1E11737A00C1F1BB /* menu.png */; };
+		C2472C451E117F9700C1F1BB /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C431E117F9700C1F1BB /* MenuView.m */; };
+		C2472C461E117F9700C1F1BB /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2472C441E117F9700C1F1BB /* MenuView.xib */; };
+		C2472C4B1E118F6D00C1F1BB /* CboDataMODEL.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C4A1E118F6D00C1F1BB /* CboDataMODEL.m */; };
+		C2472C531E118F7C00C1F1BB /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C2472C4C1E118F7C00C1F1BB /* downArrow.png */; };
+		C2472C541E118F7C00C1F1BB /* downArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2472C4D1E118F7C00C1F1BB /* downArrow@2x.png */; };
+		C2472C551E118F7C00C1F1BB /* downArrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2472C4E1E118F7C00C1F1BB /* downArrow@3x.png */; };
+		C2472C561E118F7C00C1F1BB /* DownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C501E118F7C00C1F1BB /* DownPicker.m */; };
+		C2472C571E118F7C00C1F1BB /* UIDownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C521E118F7C00C1F1BB /* UIDownPicker.m */; };
+		C2472C5C1E118FA400C1F1BB /* VisionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C5B1E118FA400C1F1BB /* VisionPicker.m */; };
+		C2472C631E11A94000C1F1BB /* RepoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C5F1E11A94000C1F1BB /* RepoPageViewController.m */; };
+		C2472C641E11A94000C1F1BB /* RepoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2472C601E11A94000C1F1BB /* RepoPageViewController.xib */; };
+		C2472C651E11A94000C1F1BB /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C621E11A94000C1F1BB /* Repository.m */; };
+		C2472C6D1E11A98C00C1F1BB /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C681E11A98C00C1F1BB /* FavoriteViewController.m */; };
+		C2472C6E1E11A98C00C1F1BB /* ResultViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C6A1E11A98C00C1F1BB /* ResultViewCell.m */; };
+		C2472C6F1E11A98C00C1F1BB /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2472C6C1E11A98C00C1F1BB /* SearchViewController.m */; };
+		C2472C731E11CCEE00C1F1BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2472C721E11CCEE00C1F1BB /* Assets.xcassets */; };
 		C25C6E6E1E0D7E6B00273F77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C25C6E6C1E0D7E6B00273F77 /* Main.storyboard */; };
-		C25C6E721E0D7FDD00273F77 /* RepoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C25C6E701E0D7FDD00273F77 /* RepoPageViewController.m */; };
-		C25C6E731E0D7FDD00273F77 /* RepoPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C25C6E711E0D7FDD00273F77 /* RepoPageViewController.xib */; };
 		C25C6E781E0D8D7300273F77 /* copy.png in Resources */ = {isa = PBXBuildFile; fileRef = C25C6E741E0D8D7300273F77 /* copy.png */; };
 		C25C6E791E0D8D7300273F77 /* copy_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C25C6E751E0D8D7300273F77 /* copy_selected.png */; };
 		C25C6E7A1E0D8D7300273F77 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = C25C6E761E0D8D7300273F77 /* heart.png */; };
@@ -25,16 +39,11 @@
 		C25C6E7D1E0D9CD400273F77 /* fav_cell.png in Resources */ = {isa = PBXBuildFile; fileRef = C25C6E7C1E0D9CD400273F77 /* fav_cell.png */; };
 		C28F21C41E0AA63600D2E135 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F21C31E0AA63600D2E135 /* main.m */; };
 		C28F21C71E0AA63600D2E135 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F21C61E0AA63600D2E135 /* AppDelegate.m */; };
-		C28F21CA1E0AA63600D2E135 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F21C91E0AA63600D2E135 /* SearchViewController.m */; };
-		C28F21CD1E0AA63600D2E135 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F21CC1E0AA63600D2E135 /* FavoriteViewController.m */; };
-		C28F21D21E0AA63600D2E135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28F21D11E0AA63600D2E135 /* Assets.xcassets */; };
 		C28F21D51E0AA63600D2E135 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C28F21D31E0AA63600D2E135 /* LaunchScreen.storyboard */; };
 		C28F21E01E0AA63600D2E135 /* RepoSearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F21DF1E0AA63600D2E135 /* RepoSearchTests.m */; };
 		C28F21EB1E0AA63600D2E135 /* RepoSearchUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C28F21EA1E0AA63600D2E135 /* RepoSearchUITests.m */; };
 		C28F21FD1E0AA6FE00D2E135 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C28F21FB1E0AA6FE00D2E135 /* icon.png */; };
 		C28F21FE1E0AA6FE00D2E135 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = C28F21FC1E0AA6FE00D2E135 /* logo.png */; };
-		C28F22081E0AA77100D2E135 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C28F22071E0AA77100D2E135 /* Images.xcassets */; };
-		C2E6307B1E0BC9170004006F /* ResultViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E630791E0BC9170004006F /* ResultViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,12 +71,35 @@
 		C23C4A2D1E0D374100EC22FF /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = RepoSearch/images/view/star.png; sourceTree = "<group>"; };
 		C23C4A311E0D37B100EC22FF /* fav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fav.png; path = RepoSearch/images/view/fav.png; sourceTree = "<group>"; };
 		C23C4A321E0D37B100EC22FF /* fav_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fav_selected.png; path = RepoSearch/images/view/fav_selected.png; sourceTree = "<group>"; };
-		C23C4A381E0D3E9200EC22FF /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
-		C23C4A391E0D3E9200EC22FF /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
+		C2472C3E1E11737A00C1F1BB /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu.png; path = RepoSearch/images/view/menu.png; sourceTree = "<group>"; };
+		C2472C421E117F9700C1F1BB /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuView.h; path = MenuView/MenuView.h; sourceTree = "<group>"; };
+		C2472C431E117F9700C1F1BB /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuView.m; path = MenuView/MenuView.m; sourceTree = "<group>"; };
+		C2472C441E117F9700C1F1BB /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuView.xib; path = MenuView/MenuView.xib; sourceTree = "<group>"; };
+		C2472C491E118F6D00C1F1BB /* CboDataMODEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CboDataMODEL.h; path = VisionControl/Model/CboDataMODEL.h; sourceTree = "<group>"; };
+		C2472C4A1E118F6D00C1F1BB /* CboDataMODEL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CboDataMODEL.m; path = VisionControl/Model/CboDataMODEL.m; sourceTree = "<group>"; };
+		C2472C4C1E118F7C00C1F1BB /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = downArrow.png; path = VisionControl/VisionPicker/DownPicker/downArrow.png; sourceTree = "<group>"; };
+		C2472C4D1E118F7C00C1F1BB /* downArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "downArrow@2x.png"; path = "VisionControl/VisionPicker/DownPicker/downArrow@2x.png"; sourceTree = "<group>"; };
+		C2472C4E1E118F7C00C1F1BB /* downArrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "downArrow@3x.png"; path = "VisionControl/VisionPicker/DownPicker/downArrow@3x.png"; sourceTree = "<group>"; };
+		C2472C4F1E118F7C00C1F1BB /* DownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DownPicker.h; path = VisionControl/VisionPicker/DownPicker/DownPicker.h; sourceTree = "<group>"; };
+		C2472C501E118F7C00C1F1BB /* DownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DownPicker.m; path = VisionControl/VisionPicker/DownPicker/DownPicker.m; sourceTree = "<group>"; };
+		C2472C511E118F7C00C1F1BB /* UIDownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIDownPicker.h; path = VisionControl/VisionPicker/DownPicker/UIDownPicker.h; sourceTree = "<group>"; };
+		C2472C521E118F7C00C1F1BB /* UIDownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIDownPicker.m; path = VisionControl/VisionPicker/DownPicker/UIDownPicker.m; sourceTree = "<group>"; };
+		C2472C5A1E118FA400C1F1BB /* VisionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisionPicker.h; path = VisionControl/VisionPicker/VisionPicker.h; sourceTree = "<group>"; };
+		C2472C5B1E118FA400C1F1BB /* VisionPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisionPicker.m; path = VisionControl/VisionPicker/VisionPicker.m; sourceTree = "<group>"; };
+		C2472C5E1E11A94000C1F1BB /* RepoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RepoPageViewController.h; path = Repository/RepoPageViewController.h; sourceTree = "<group>"; };
+		C2472C5F1E11A94000C1F1BB /* RepoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RepoPageViewController.m; path = Repository/RepoPageViewController.m; sourceTree = "<group>"; };
+		C2472C601E11A94000C1F1BB /* RepoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RepoPageViewController.xib; path = Repository/RepoPageViewController.xib; sourceTree = "<group>"; };
+		C2472C611E11A94000C1F1BB /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Repository.h; path = Repository/Repository.h; sourceTree = "<group>"; };
+		C2472C621E11A94000C1F1BB /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Repository.m; path = Repository/Repository.m; sourceTree = "<group>"; };
+		C2472C671E11A98C00C1F1BB /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteViewController.h; path = Search/FavoriteViewController.h; sourceTree = "<group>"; };
+		C2472C681E11A98C00C1F1BB /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavoriteViewController.m; path = Search/FavoriteViewController.m; sourceTree = "<group>"; };
+		C2472C691E11A98C00C1F1BB /* ResultViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultViewCell.h; path = Search/ResultViewCell.h; sourceTree = "<group>"; };
+		C2472C6A1E11A98C00C1F1BB /* ResultViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultViewCell.m; path = Search/ResultViewCell.m; sourceTree = "<group>"; };
+		C2472C6B1E11A98C00C1F1BB /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Search/SearchViewController.h; sourceTree = "<group>"; };
+		C2472C6C1E11A98C00C1F1BB /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Search/SearchViewController.m; sourceTree = "<group>"; };
+		C2472C711E11A9AE00C1F1BB /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Define.h; path = Common/Define.h; sourceTree = "<group>"; };
+		C2472C721E11CCEE00C1F1BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = RepoSearch/Assets.xcassets; sourceTree = "<group>"; };
 		C25C6E6D1E0D7E6B00273F77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = RepoSearch/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C25C6E6F1E0D7FDD00273F77 /* RepoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoPageViewController.h; sourceTree = "<group>"; };
-		C25C6E701E0D7FDD00273F77 /* RepoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoPageViewController.m; sourceTree = "<group>"; };
-		C25C6E711E0D7FDD00273F77 /* RepoPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepoPageViewController.xib; sourceTree = "<group>"; };
 		C25C6E741E0D8D7300273F77 /* copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = copy.png; path = RepoSearch/images/view/copy.png; sourceTree = "<group>"; };
 		C25C6E751E0D8D7300273F77 /* copy_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = copy_selected.png; path = RepoSearch/images/view/copy_selected.png; sourceTree = "<group>"; };
 		C25C6E761E0D8D7300273F77 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = heart.png; path = RepoSearch/images/view/heart.png; sourceTree = "<group>"; };
@@ -77,11 +109,6 @@
 		C28F21C31E0AA63600D2E135 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C28F21C51E0AA63600D2E135 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C28F21C61E0AA63600D2E135 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C28F21C81E0AA63600D2E135 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		C28F21C91E0AA63600D2E135 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		C28F21CB1E0AA63600D2E135 /* FavoriteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
-		C28F21CC1E0AA63600D2E135 /* FavoriteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
-		C28F21D11E0AA63600D2E135 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C28F21D41E0AA63600D2E135 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C28F21D61E0AA63600D2E135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C28F21DB1E0AA63600D2E135 /* RepoSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RepoSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,10 +119,6 @@
 		C28F21EC1E0AA63600D2E135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C28F21FB1E0AA6FE00D2E135 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = RepoSearch/images/logo/icon.png; sourceTree = "<group>"; };
 		C28F21FC1E0AA6FE00D2E135 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = RepoSearch/images/logo/logo.png; sourceTree = "<group>"; };
-		C28F22071E0AA77100D2E135 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C28F22091E0ABB9400D2E135 /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
-		C2E630781E0BC9170004006F /* ResultViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewCell.h; sourceTree = "<group>"; };
-		C2E630791E0BC9170004006F /* ResultViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,9 +146,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C2472C471E118F0B00C1F1BB /* MenuView */ = {
+			isa = PBXGroup;
+			children = (
+				C2472C421E117F9700C1F1BB /* MenuView.h */,
+				C2472C431E117F9700C1F1BB /* MenuView.m */,
+				C2472C441E117F9700C1F1BB /* MenuView.xib */,
+			);
+			name = MenuView;
+			sourceTree = "<group>";
+		};
+		C2472C481E118F4A00C1F1BB /* DropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C2472C5A1E118FA400C1F1BB /* VisionPicker.h */,
+				C2472C5B1E118FA400C1F1BB /* VisionPicker.m */,
+				C2472C4C1E118F7C00C1F1BB /* downArrow.png */,
+				C2472C4D1E118F7C00C1F1BB /* downArrow@2x.png */,
+				C2472C4E1E118F7C00C1F1BB /* downArrow@3x.png */,
+				C2472C4F1E118F7C00C1F1BB /* DownPicker.h */,
+				C2472C501E118F7C00C1F1BB /* DownPicker.m */,
+				C2472C511E118F7C00C1F1BB /* UIDownPicker.h */,
+				C2472C521E118F7C00C1F1BB /* UIDownPicker.m */,
+				C2472C491E118F6D00C1F1BB /* CboDataMODEL.h */,
+				C2472C4A1E118F6D00C1F1BB /* CboDataMODEL.m */,
+			);
+			name = DropDownMenu;
+			sourceTree = "<group>";
+		};
+		C2472C5D1E11A92D00C1F1BB /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C2472C5E1E11A94000C1F1BB /* RepoPageViewController.h */,
+				C2472C5F1E11A94000C1F1BB /* RepoPageViewController.m */,
+				C2472C601E11A94000C1F1BB /* RepoPageViewController.xib */,
+				C2472C611E11A94000C1F1BB /* Repository.h */,
+				C2472C621E11A94000C1F1BB /* Repository.m */,
+			);
+			name = Repository;
+			sourceTree = "<group>";
+		};
+		C2472C661E11A98000C1F1BB /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C2472C671E11A98C00C1F1BB /* FavoriteViewController.h */,
+				C2472C681E11A98C00C1F1BB /* FavoriteViewController.m */,
+				C2472C691E11A98C00C1F1BB /* ResultViewCell.h */,
+				C2472C6A1E11A98C00C1F1BB /* ResultViewCell.m */,
+				C2472C6B1E11A98C00C1F1BB /* SearchViewController.h */,
+				C2472C6C1E11A98C00C1F1BB /* SearchViewController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		C2472C701E11A99600C1F1BB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C2472C711E11A9AE00C1F1BB /* Define.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		C28F21B61E0AA63600D2E135 = {
 			isa = PBXGroup;
 			children = (
+				C2472C721E11CCEE00C1F1BB /* Assets.xcassets */,
 				C28F21F81E0AA6DC00D2E135 /* images */,
 				C28F21C11E0AA63600D2E135 /* RepoSearch */,
 				C28F21DE1E0AA63600D2E135 /* RepoSearchTests */,
@@ -147,26 +232,17 @@
 		C28F21C11E0AA63600D2E135 /* RepoSearch */ = {
 			isa = PBXGroup;
 			children = (
+				C2472C701E11A99600C1F1BB /* Common */,
+				C2472C661E11A98000C1F1BB /* Search */,
+				C2472C5D1E11A92D00C1F1BB /* Repository */,
+				C2472C481E118F4A00C1F1BB /* DropDownMenu */,
+				C2472C471E118F0B00C1F1BB /* MenuView */,
 				C25C6E6C1E0D7E6B00273F77 /* Main.storyboard */,
-				C28F22091E0ABB9400D2E135 /* Define.h */,
 				C28F21C51E0AA63600D2E135 /* AppDelegate.h */,
 				C28F21C61E0AA63600D2E135 /* AppDelegate.m */,
-				C28F21C81E0AA63600D2E135 /* SearchViewController.h */,
-				C28F21C91E0AA63600D2E135 /* SearchViewController.m */,
-				C28F21CB1E0AA63600D2E135 /* FavoriteViewController.h */,
-				C28F21CC1E0AA63600D2E135 /* FavoriteViewController.m */,
-				C2E630781E0BC9170004006F /* ResultViewCell.h */,
-				C2E630791E0BC9170004006F /* ResultViewCell.m */,
-				C28F21D11E0AA63600D2E135 /* Assets.xcassets */,
 				C28F21D31E0AA63600D2E135 /* LaunchScreen.storyboard */,
-				C23C4A381E0D3E9200EC22FF /* Repository.h */,
-				C23C4A391E0D3E9200EC22FF /* Repository.m */,
 				C28F21D61E0AA63600D2E135 /* Info.plist */,
-				C28F22071E0AA77100D2E135 /* Images.xcassets */,
 				C28F21C21E0AA63600D2E135 /* Supporting Files */,
-				C25C6E6F1E0D7FDD00273F77 /* RepoPageViewController.h */,
-				C25C6E701E0D7FDD00273F77 /* RepoPageViewController.m */,
-				C25C6E711E0D7FDD00273F77 /* RepoPageViewController.xib */,
 			);
 			path = RepoSearch;
 			sourceTree = "<group>";
@@ -218,6 +294,7 @@
 		C28F21FA1E0AA6EF00D2E135 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				C2472C3E1E11737A00C1F1BB /* menu.png */,
 				C22B58A61E0DBB5700775698 /* fav_cell_selected.png */,
 				C25C6E7C1E0D9CD400273F77 /* fav_cell.png */,
 				C25C6E741E0D8D7300273F77 /* copy.png */,
@@ -344,23 +421,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				C25C6E7A1E0D8D7300273F77 /* heart.png in Resources */,
-				C28F22081E0AA77100D2E135 /* Images.xcassets in Resources */,
 				C23C4A291E0D34B300EC22FF /* fork.png in Resources */,
 				C25C6E7D1E0D9CD400273F77 /* fav_cell.png in Resources */,
 				C25C6E7B1E0D8D7300273F77 /* search.png in Resources */,
+				C2472C641E11A94000C1F1BB /* RepoPageViewController.xib in Resources */,
+				C2472C541E118F7C00C1F1BB /* downArrow@2x.png in Resources */,
 				C23C4A331E0D37B100EC22FF /* fav.png in Resources */,
 				C23C4A2E1E0D374100EC22FF /* code.png in Resources */,
-				C25C6E731E0D7FDD00273F77 /* RepoPageViewController.xib in Resources */,
 				C22B58A71E0DBB5700775698 /* fav_cell_selected.png in Resources */,
 				C28F21FD1E0AA6FE00D2E135 /* icon.png in Resources */,
 				C23C4A341E0D37B100EC22FF /* fav_selected.png in Resources */,
 				C28F21FE1E0AA6FE00D2E135 /* logo.png in Resources */,
+				C2472C3F1E11737A00C1F1BB /* menu.png in Resources */,
 				C25C6E781E0D8D7300273F77 /* copy.png in Resources */,
 				C25C6E6E1E0D7E6B00273F77 /* Main.storyboard in Resources */,
 				C28F21D51E0AA63600D2E135 /* LaunchScreen.storyboard in Resources */,
+				C2472C531E118F7C00C1F1BB /* downArrow.png in Resources */,
+				C2472C551E118F7C00C1F1BB /* downArrow@3x.png in Resources */,
 				C23C4A2A1E0D34B300EC22FF /* background.jpg in Resources */,
+				C2472C461E117F9700C1F1BB /* MenuView.xib in Resources */,
 				C25C6E791E0D8D7300273F77 /* copy_selected.png in Resources */,
-				C28F21D21E0AA63600D2E135 /* Assets.xcassets in Resources */,
+				C2472C731E11CCEE00C1F1BB /* Assets.xcassets in Resources */,
 				C23C4A301E0D374100EC22FF /* star.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,13 +467,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C28F21CD1E0AA63600D2E135 /* FavoriteViewController.m in Sources */,
+				C2472C6D1E11A98C00C1F1BB /* FavoriteViewController.m in Sources */,
 				C28F21C71E0AA63600D2E135 /* AppDelegate.m in Sources */,
-				C23C4A3A1E0D3E9200EC22FF /* Repository.m in Sources */,
-				C25C6E721E0D7FDD00273F77 /* RepoPageViewController.m in Sources */,
-				C2E6307B1E0BC9170004006F /* ResultViewCell.m in Sources */,
-				C28F21CA1E0AA63600D2E135 /* SearchViewController.m in Sources */,
+				C2472C6E1E11A98C00C1F1BB /* ResultViewCell.m in Sources */,
+				C2472C4B1E118F6D00C1F1BB /* CboDataMODEL.m in Sources */,
+				C2472C451E117F9700C1F1BB /* MenuView.m in Sources */,
+				C2472C5C1E118FA400C1F1BB /* VisionPicker.m in Sources */,
+				C2472C631E11A94000C1F1BB /* RepoPageViewController.m in Sources */,
+				C2472C651E11A94000C1F1BB /* Repository.m in Sources */,
+				C2472C571E118F7C00C1F1BB /* UIDownPicker.m in Sources */,
 				C28F21C41E0AA63600D2E135 /* main.m in Sources */,
+				C2472C6F1E11A98C00C1F1BB /* SearchViewController.m in Sources */,
+				C2472C561E118F7C00C1F1BB /* DownPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

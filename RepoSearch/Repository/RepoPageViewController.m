@@ -100,6 +100,7 @@
     
     [ud setObject:defaults forKey:@"favorites"];
     [ud synchronize];
+//    [ud registerDefaults:defaults];
     
     [favBtn setImage:fav_img];
     NSArray* items = [[NSArray alloc] initWithObjects:copyBtn, favBtn, nil];

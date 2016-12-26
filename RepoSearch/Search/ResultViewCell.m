@@ -25,6 +25,17 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    filename.adjustsFontSizeToFitWidth = YES;
+    user.adjustsFontSizeToFitWidth = YES;
+
+    description.numberOfLines = 2;
+    [description setLineBreakMode:NSLineBreakByWordWrapping];
+    description.adjustsFontSizeToFitWidth = YES;
+//    description.sizeToFit;
+    lan.adjustsFontSizeToFitWidth = YES;
+    star.adjustsFontSizeToFitWidth = YES;
+    fork.adjustsFontSizeToFitWidth = YES;
+    update.adjustsFontSizeToFitWidth = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
