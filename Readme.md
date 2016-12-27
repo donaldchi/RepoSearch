@@ -11,6 +11,20 @@
   - 検索option機能の追加
   - UserDefaultsに置ける自作クラスデータの保存 
 
-demo
-インクリメント検索
-![alt tag](http://url/to/search.gif)
+#demo
+
+## インクリメント検索 / 検索回数制限エラー
+
+![search](http://ganbaruyo.net/gif/search.gif)
+
+## オプションを加えた検索
+
+![optionsearch](http://ganbaruyo.net/gif/option1.gif)
+
+![optionsearch](http://ganbaruyo.net/gif/option2.gif)
+
+## 気に入りボダーンとレポジトリの閲覧
+
+![favorite](http://ganbaruyo.net/gif/favorite1.gif)
+
+![favorite](http://ganbaruyo.net/gif/favorite2.gif)
