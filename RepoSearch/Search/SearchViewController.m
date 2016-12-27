@@ -78,27 +78,44 @@
 
 - (void) searchRepo {
     BM_START(searchRepo);
+    
     NSString *keyword = searchBar.text;
-    
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    //入力がある度にthreadを生成し、非同期で検索処理を行う
-//    NSLog(@"main thread: %@", [NSThread currentThread]);
-    __block NSDictionary *result; //各threadの結果を格納する
-    dispatch_block_t block = ^{
-        result = [self search: keyword];
-//    NSLog(@"thread: %@, key: %@", [NSThread currentThread], keyword);
-    };
-    
-    dispatch_group_async(group, queue, block);
-    
-    //処理が終わった時に通知を受け、結果を表示する
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-//        NSLog(@"result: %@, thread: %@, key: %@", result,[NSThread currentThread], keyword);
-//        NSLog(@"thread: %@, key: %@, count: %d",[NSThread currentThread], keyword, result[@"total_count"]);
-        [self createRepoRecords:result];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSDictionary *result = [self search: keyword];
+        NSLog(@"intput thread: %@, key: %@", [NSThread currentThread], keyword);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self createRepoRecords:result];
+            NSLog(@"output thread: %@, key: %@", [NSThread currentThread], keyword);
+        });
     });
+    
+//    dispatch_group_t group = dispatch_group_create();
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    
+//    //入力がある度にthreadを生成し、非同期で検索処理を行う
+////    NSLog(@"main thread: %@", [NSThread currentThread]);
+//    __block NSDictionary *result; //各threadの結果を格納する
+//    dispatch_block_t block = ^{
+//        result = [self search: keyword];
+//    NSLog(@"input thread: %@, key: %@", [NSThread currentThread], keyword);
+//        
+//      CFAbsoluteTimeGetCurrent();
+//        
+//    };
+//    
+//    dispatch_group_async(group, queue, block);
+//    
+//    //処理が終わった時に通知を受け、結果を表示する
+//    //前後検索結果の処理順番はdispatch_group_notifyで守れるはず
+//    //入力したキーワード順に結果が返してこないと、インクリメント検索の意味がない
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+////        NSLog(@"result: %@, thread: %@, key: %@", result,[NSThread currentThread], keyword);
+//        NSLog(@"output thread: %@, key: %@",[NSThread currentThread], keyword);
+//        CFAbsoluteTimeGetCurrent();
+//        
+//        [self createRepoRecords:result];
+//    });
     BM_END(searchRepo);
 }
 
@@ -240,9 +257,9 @@
             UIImage * img = [UIImage imageWithData:[NSData dataWithContentsOfURL: [NSURL URLWithString:repo.avatar]]];
             dispatch_async(dispatch_get_main_queue(), ^{
                 ResultViewCell * cell = (ResultViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-                
-                // assign cell image on main thread
-                [cell.user_pic setImage:img];
+                if(cell.user.text!=nil)
+                    // assign cell image on main thread
+                    [cell.user_pic setImage:img];
             });
         });
         
@@ -323,13 +340,17 @@
 #pragma mark - menu management
 - (IBAction)menuPressed:(id)sender {
     LOG_CURRENT_METHOD;
+//    [menu setAdjustsImageWhenDisabled:false];
+//    UIImage * bmg = [UIImage imageNamed:@"menu_selected.png"];
+//    [menu setBackgroundImage:bmg forState:UIControlEventTouchUpInside];
+    
     if (menuView.isMenuOpen) {
         [self hiddenOverlayView];
         NSLog(@"hide menu");
         [searchBar setUserInteractionEnabled:YES];
         [resultView setUserInteractionEnabled:YES];
         [self searchRepo]; //option選択が終わった時点でもう一度検索し直す
-        
+        NSLog(@"Touchupinside");
     } else {
         [self showOverlayView];
         NSLog(@"show menu");
