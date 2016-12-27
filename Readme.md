@@ -10,3 +10,21 @@
     - イメージを一気にダウンロードすると時間かかるのと、全てを一気に表示した場合、tableviewの速度も落ちるため、非同期通信でどんどんダウンロードできるようにした
   - 検索option機能の追加
   - UserDefaultsに置ける自作クラスデータの保存 
+
+#demo
+
+## インクリメント検索 / 検索回数制限エラー
+
+![search](http://ganbaruyo.net/gif/search.gif)
+
+## オプションを加えた検索
+
+![optionsearch](http://ganbaruyo.net/gif/option1.gif)
+
+![optionsearch](http://ganbaruyo.net/gif/option2.gif)
+
+## 気に入りボダーンとレポジトリの閲覧
+
+![favorite](http://ganbaruyo.net/gif/favorite1.gif)
+
+![favorite](http://ganbaruyo.net/gif/favorite2.gif)
